@@ -1,19 +1,23 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { readFileSync } from 'fs';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Employee } from './Employee/employee.entity';
 import { EmployeeModule } from './Employee/employee.module';
-
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: ".env",
+    }),
     TypeOrmModule.forRoot({
       type : 'postgres',
-      host : 'chunee.db.elephantsql.com',
-      port : 5432,
-      username: 'swdpvovl',
-      password : 'kLan_iAc80PUTb05Lom6fvjCf0knvXNm',
-      database : 'swdpvovl',
+      host : process.env.DB_HOST,
+      port : parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password : process.env.DB_PASSWORD,
+      database : process.env.DB_DATABASE,
       entities: [Employee]
     }),
     EmployeeModule
