@@ -13,7 +13,15 @@ export class EmployeeService {
     return this.employeeRepo.find();
   }
 
-  create(newEmployee){
-      this.employeeRepo.insert(newEmployee);
+  create(newEmployee) {
+    this.employeeRepo.insert(newEmployee);
+  }
+
+  update(id, employeeToUpdate) {
+    this.employeeRepo.update(id, employeeToUpdate);
+  }
+
+  delete(id) {
+    this.employeeRepo.delete(id);
   }
 }
